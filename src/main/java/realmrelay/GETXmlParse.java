@@ -173,7 +173,7 @@ public class GETXmlParse {
 			} else if (xmlType == XML_OBJECTS) {
 				ObjectData objectData = new ObjectData();
 				objectData.id = el.getAttribute("id");
-				objectData.type = Integer.decode(el.getAttribute("type"));
+				objectData.objectType = Integer.decode(el.getAttribute("type"));
 				NodeList nodeList = null;
 				if ((nodeList = el.getElementsByTagName("MaxHitPoints")).getLength() > 0) {
 					objectData.maxHitPoints = Integer.parseInt(nodeList.item(0).getTextContent());
@@ -239,7 +239,7 @@ public class GETXmlParse {
 					objectData.z = Float.parseFloat(nodeList.item(0).getTextContent());
 				}
 				objectMap.put(idtemp, objectData);
-				objectMap2.put(objectData.type, objectData);
+				objectMap2.put(objectData.objectType, objectData);
 			} else if (xmlType == XML_PACKETS) {
 				String typetemp = el.getAttribute("type");
 				int packetType = Integer.parseInt(typetemp);
