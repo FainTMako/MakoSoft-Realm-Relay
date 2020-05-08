@@ -6,7 +6,16 @@ import java.io.IOException;
 
 
 public class LocationRecord extends Location {
-	
+    
+        public LocationRecord(int ar1, float ar2, float ar3)
+        {
+            this.time=ar1;
+            this.x = ar2;
+            this.y = ar3;
+        }
+	public LocationRecord()
+        {
+        }
 	public int time;
 	
 	@Override
