@@ -13,8 +13,10 @@ public class DamagePacket extends Packet {
 	public int[] effects = new int[0];
 	public int damageAmount;
 	public boolean kill;
+        public boolean armorPierce_;
 	public int bulletId;
 	public int objectId;
+        
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
@@ -25,6 +27,7 @@ public class DamagePacket extends Packet {
 		}
 		this.damageAmount = in.readUnsignedShort();
 		this.kill = in.readBoolean();
+                this.armorPierce_ = in.readBoolean();
 		this.bulletId = in.readUnsignedByte();
 		this.objectId = in.readInt();
 	}
@@ -38,6 +41,7 @@ public class DamagePacket extends Packet {
 		}
 		out.writeShort(this.damageAmount);
 		out.writeBoolean(this.kill);
+                out.writeBoolean(this.armorPierce_);
 		out.writeByte(this.bulletId);
 		out.writeInt(this.objectId);
 	}

@@ -82,7 +82,7 @@ public abstract class Packet implements IData {
 		list.add(RequestTradePacket.class);
 		list.add(ReskinPacket.class);
 		list.add(SetConditionPacket.class);
-		list.add(Shoot2Packet.class);
+		list.add(ServerPlayerShootPacket.class);
 		list.add(ShootAckPacket.class);
 		list.add(ShootPacket.class);
 		list.add(Show_EffectPacket.class);
