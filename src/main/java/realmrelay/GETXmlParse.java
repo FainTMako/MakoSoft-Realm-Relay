@@ -45,14 +45,16 @@ public class GETXmlParse {
 		parseXMLtoMap("Object", XML_OBJECTS, "xml/objects.xml");
 		parseXMLtoMap("Ground", XML_TILES, "xml/tiles.xml");
 		parseXMLtoMap("Packet", XML_PACKETS, "xml/packets.xml");
-		parseXMLtoMap("Object", XML_ITEMS, "xml/items.xml");
+//		parseXMLtoMap("Object", XML_ITEMS, "xml/items.xml");
 	}
 
 	private static void parseXMLtoMap(String elementTagName, int xmlType, String localFilePath) throws Exception {
 		File file = new File(localFilePath);
+                System.err.println("Trying to find file in path: " + file.getAbsolutePath());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		InputStream in = new FileInputStream(file);
+               
 		Document doc = dBuilder.parse(in);
 		in.close();
 		doc.getDocumentElement().normalize();
@@ -193,9 +195,9 @@ public class GETXmlParse {
 				if ((nodeList = el.getElementsByTagName("ShadowSize")).getLength() > 0) {
 					objectData.shadowSize = Integer.parseInt(nodeList.item(0).getTextContent());
 				}
-				if ((nodeList = el.getElementsByTagName("Color")).getLength() > 0) {
-					objectData.color = Integer.decode(nodeList.item(0).getTextContent());
-				}
+//				if ((nodeList = el.getElementsByTagName("Color")).getLength() > 0) {
+//					objectData.color = Integer.decode(nodeList.item(0).getTextContent());
+//				}
 				if ((nodeList = el.getElementsByTagName("XpMult")).getLength() > 0) {
 					objectData.xpMult = Float.parseFloat(nodeList.item(0).getTextContent());
 				}
@@ -241,9 +243,18 @@ public class GETXmlParse {
 				objectMap.put(idtemp, objectData);
 				objectMap2.put(objectData.objectType, objectData);
 			} else if (xmlType == XML_PACKETS) {
-				String typetemp = el.getAttribute("type");
-				int packetType = Integer.parseInt(typetemp);
-				packetMap.put(idtemp, packetType);
+                            
+                                NodeList nodeList1 = null;
+				nodeList1 = el.getElementsByTagName("PacketName");
+                                idtemp = nodeList1.item(0).getTextContent();
+                                NodeList nodeList2 = null;
+                                nodeList2 = el.getElementsByTagName("PacketID");
+//                                int typetemp = nodeList2.item(0).getTextContent();
+                                int typetemp = Integer.parseInt(nodeList2.item(0).getTextContent());
+                                System.err.println("idtemp" + idtemp + "Typetemp " + typetemp);
+//				int packetType = 1;
+                                
+				packetMap.put(idtemp, typetemp);
 			}
 		}
 	}

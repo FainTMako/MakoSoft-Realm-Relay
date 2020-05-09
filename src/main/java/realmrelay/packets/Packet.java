@@ -18,10 +18,12 @@ import realmrelay.packets.server.*;
 
 
 public abstract class Packet implements IData {
+    private static boolean initialized = false;
 
 	private static final List<Class<? extends Packet>> packetIdtoClassMap = new ArrayList<Class<? extends Packet>>(127);
 	
 	public static void init() {
+            initialized = true;
 		for (int i = 0; i < 127; i++) {
 			packetIdtoClassMap.add(null);
 		}
@@ -130,6 +132,8 @@ public abstract class Packet implements IData {
 	 * @throws InstantiationException 
 	 */
 	public static Packet create(byte id) throws Exception {
+                if(!initialized)
+                    init();
 		Class<? extends Packet> packetClass = packetIdtoClassMap.get(id);
 		if (packetClass == null) {
 			UnknownPacket packet = new UnknownPacket();
@@ -171,7 +175,7 @@ public abstract class Packet implements IData {
 	
 	public byte id() {
 		String name = this.getName();
-		Integer id = (Integer) GETXmlParse.packetMap.get(name);
+		Integer id = GETXmlParse.packetMap.get(name);
 		if (id == null) {
 			return -1;
 		}

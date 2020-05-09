@@ -12,26 +12,36 @@ public class MapInfoPacket extends Packet {
 	public int width;
 	public int height;
 	public String name;
+        public String displayName;
+        public String realmName;
 	public String obf0;
 	public int obf1;
 	public int fp;
 	public int background;
+        public int difficulty;
 	public boolean allowPlayerTeleport;
 	public boolean showDisplays;
 	public String[] clientXML = new String[0];
 	public String[] extraXML = new String[0];
+        public short maxPlayers;
+        public String connectionGuid;
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.width = in.readInt();
 		this.height = in.readInt();
 		this.name = in.readUTF();
-		this.obf0 = in.readUTF();
+                this.displayName = in.readUTF();
+                this.realmName = in.readUTF();
+//		this.obf0 = in.readUTF();
 		this.fp = in.readInt(); // TODO: fp is supposed to be unsigned
 		this.background = in.readInt();
-		this.obf1 = in.readInt();
+		this.difficulty = in.readInt();
 		this.allowPlayerTeleport = in.readBoolean();
 		this.showDisplays = in.readBoolean();
+                this.maxPlayers = in.readShort();
+                this.connectionGuid = in.readUTF();
+                
 		this.clientXML = new String[in.readShort()];
 		for (int i = 0; i < this.clientXML.length; i++) {
 			byte[] utf = new byte[in.readInt()];
@@ -51,13 +61,17 @@ public class MapInfoPacket extends Packet {
 		out.writeInt(this.width);
 		out.writeInt(this.height);
 		out.writeUTF(this.name);
-		out.writeUTF(this.obf0);
+		out.writeUTF(this.displayName);
+                out.writeUTF(this.realmName);
 		out.writeInt(this.fp);
 		out.writeInt(this.background);
-		out.writeInt(this.obf1);
+		out.writeInt(this.difficulty);
 		out.writeBoolean(this.allowPlayerTeleport);
 		out.writeBoolean(this.showDisplays);
+                out.writeInt(this.maxPlayers);
 		out.writeShort(this.clientXML.length);
+                out.writeUTF(this.connectionGuid);
+                
 		for (String xml: this.clientXML) {
 			byte[] utf = xml.getBytes("UTF-8");
 			out.writeInt(utf.length);

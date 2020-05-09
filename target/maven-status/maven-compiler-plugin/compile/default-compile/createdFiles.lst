@@ -11,7 +11,6 @@ realmrelay\packets\server\FilePacket.class
 realmrelay\data\GroundData.class
 realmrelay\packets\server\ReconnectPacket.class
 realmrelay\packets\client\EnemyHitPacket.class
-realmrelay\packets\server\Shoot2Packet.class
 realmrelay\packets\server\ShootPacket.class
 realmrelay\packets\client\TeleportPacket.class
 realmrelay\data\SlotObject.class
@@ -38,7 +37,6 @@ realmrelay\packets\server\PicPacket.class
 realmrelay\packets\UnknownPacket.class
 realmrelay\packets\client\UsePortalPacket.class
 realmrelay\script\PacketScriptEvent.class
-.netbeans_automatic_build
 realmrelay\packets\client\UseItemPacket.class
 realmrelay\packets\client\ShootAckPacket.class
 realmrelay\packets\server\AOEPacket.class
@@ -74,6 +72,7 @@ realmrelay\packets\client\LoadPacket.class
 realmrelay\packets\client\ChooseNamePacket.class
 realmrelay\data\BitmapData.class
 realmrelay\packets\server\TradeAcceptedPacket.class
+realmrelay\crypto\ARC4.class
 realmrelay\packets\server\FailurePacket.class
 realmrelay\data\IData.class
 realmrelay\data\ProjectileData.class
@@ -92,6 +91,7 @@ realmrelay\packets\client\BuyPacket.class
 realmrelay\packets\client\InvSwapPacket.class
 realmrelay\packets\server\TradeDonePacket.class
 realmrelay\data\ItemData.class
+realmrelay\packets\client\GotoQuestRoomPacket.class
 realmrelay\packets\client\PlayerTextPacket.class
 realmrelay\script\ScheduledScriptEvent.class
 realmrelay\net\ListenSocket.class
@@ -100,6 +100,7 @@ realmrelay\packets\client\HelloPacket.class
 realmrelay\packets\server\TradeChangedPacket.class
 realmrelay\packets\server\Show_EffectPacket.class
 realmrelay\packets\server\DeathPacket.class
+realmrelay\packets\server\ServerPlayerShootPacket.class
 realmrelay\data\ObjectData.class
 realmrelay\packets\client\PongPacket.class
 realmrelay\packets\server\MapInfoPacket.class
