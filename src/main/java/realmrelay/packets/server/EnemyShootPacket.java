@@ -9,7 +9,7 @@ import realmrelay.packets.Packet;
 
 
 
-public class ShootPacket extends Packet {
+public class EnemyShootPacket extends Packet {
 	
 	public int bulletId;
 	public int ownerId;

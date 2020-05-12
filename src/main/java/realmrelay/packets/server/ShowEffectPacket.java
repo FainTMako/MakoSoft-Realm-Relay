@@ -9,7 +9,7 @@ import realmrelay.packets.Packet;
 
 
 
-public class Show_EffectPacket extends Packet {
+public class ShowEffectPacket extends Packet {
 
     
                 public static final int UNKNOWN_EFFECT_TYPE = 0;
@@ -40,6 +40,7 @@ public class Show_EffectPacket extends Packet {
 	public Location pos1 = new Location();
 	public Location pos2 = new Location();
 	public int color;
+        public float duration;
         
         
 
@@ -50,6 +51,7 @@ public class Show_EffectPacket extends Packet {
 		this.pos1.parseFromInput(in);
 		this.pos2.parseFromInput(in);
 		this.color = in.readInt();
+                this.duration = in.readFloat();
 	}
 
 	@Override
@@ -59,6 +61,7 @@ public class Show_EffectPacket extends Packet {
 		this.pos1.writeToOutput(out);
 		this.pos2.writeToOutput(out);
 		out.writeInt(this.color);
+                out.writeFloat(duration);
 	}
 
 }

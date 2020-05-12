@@ -7,7 +7,7 @@ import java.io.IOException;
 import realmrelay.packets.Packet;
 
 
-public class Create_SuccessPacket extends Packet {
+public class CreateSuccessPacket extends Packet {
 	
 	public int objectId;
 	public int charId;

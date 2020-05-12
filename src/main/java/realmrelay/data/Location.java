@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Location implements IData {
 	
-	public float x, y;
+	public double x, y;
 	
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
@@ -17,13 +17,13 @@ public class Location implements IData {
 	
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeFloat(this.x);
-		out.writeFloat(this.y);
+		out.writeFloat((float) this.x);
+		out.writeFloat((float) this.y);
 	}
 	
 	public float distanceSquaredTo(Location location) {
-		float dx = location.x - this.x;
-		float dy = location.y - this.y;
+		float dx = (float) (location.x - this.x);
+		float dy = (float) (location.y - this.y);
 		return dx * dx + dy * dy;
 	}
 	

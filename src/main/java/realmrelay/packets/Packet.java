@@ -6,12 +6,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import realmrelay.GETXmlParse;
+import static realmrelay.GETXmlParse.packetMap;
 import realmrelay.ROTMGRelay;
+import static realmrelay.ROTMGRelay.echo;
 import realmrelay.data.IData;
 import realmrelay.packets.client.*;
 import realmrelay.packets.server.*;
@@ -20,14 +24,14 @@ import realmrelay.packets.server.*;
 public abstract class Packet implements IData {
     private static boolean initialized = false;
 
-	private static final List<Class<? extends Packet>> packetIdtoClassMap = new ArrayList<Class<? extends Packet>>(127);
+	private static Map<Byte,Class> packetIdtoClassMap = new HashMap<>();
 	
 	public static void init() {
             initialized = true;
-		for (int i = 0; i < 127; i++) {
-			packetIdtoClassMap.add(null);
-		}
-		List<Class<? extends Packet>> list = new LinkedList<Class<? extends Packet>>();
+//		for (byte i = 0; i < 256; i++) {
+//			packetIdtoClassMap.put(i,null);
+//		}
+		List<Class<? extends Packet>> list = new LinkedList<>();
 		
 		list.add(AcceptTradePacket.class);
 		list.add(AccountListPacket.class);
@@ -42,7 +46,7 @@ public abstract class Packet implements IData {
 		list.add(CheckCreditsPacket.class);
 		list.add(ChooseNamePacket.class);
 		list.add(ClientStatPacket.class);
-		list.add(Create_SuccessPacket.class);
+		list.add(CreateSuccessPacket.class);
 		list.add(CreateGuildPacket.class);
 		list.add(CreateGuildResultPacket.class);
 		list.add(CreatePacket.class);
@@ -69,7 +73,7 @@ public abstract class Packet implements IData {
 		list.add(MapInfoPacket.class);
 		list.add(MovePacket.class);
 		list.add(NameResultPacket.class);
-		list.add(New_TickPacket.class);
+		list.add(NewTickPacket.class);
 		list.add(NotificationPacket.class);
 		list.add(OtherHitPacket.class);
 		list.add(PicPacket.class);
@@ -86,8 +90,8 @@ public abstract class Packet implements IData {
 		list.add(SetConditionPacket.class);
 		list.add(ServerPlayerShootPacket.class);
 		list.add(ShootAckPacket.class);
-		list.add(ShootPacket.class);
-		list.add(Show_EffectPacket.class);
+		list.add(EnemyShootPacket.class);
+		list.add(ShowEffectPacket.class);
 		list.add(SquareHitPacket.class);
 		list.add(TeleportPacket.class);
 		list.add(TextPacket.class);
@@ -101,26 +105,26 @@ public abstract class Packet implements IData {
 		list.add(UseItemPacket.class);
 		list.add(UsePortalPacket.class);
 		try {
-			ROTMGRelay.echo("Mapping " + GETXmlParse.packetMap.size() +" packets.");
-			for (Class<? extends Packet> packetClass: list) {
-				Packet packet = packetClass.newInstance();
-				
-				
+			echo("Mapping " + packetMap.size() +" packets.");
+			for (Class packetClass: list) 
+                        {
+				Packet packet = (Packet) packetClass.getConstructor().newInstance();
+
 				if (packet.id() == -1){
-					packetIdtoClassMap.set(100, packetClass);
+                                    System.err.println("Packet id: -1 " + packet.getName());
+					packetIdtoClassMap.put((byte)127, packetClass);
 				} else {
-					packetIdtoClassMap.set(packet.id(), packetClass);
+					packetIdtoClassMap.put(packet.id(), packetClass);
 				}
 			}
-			for (Entry<String, Integer> entry: GETXmlParse.packetMap.entrySet()) {
-				byte id = entry.getValue().byteValue();
-				Packet packet = Packet.create(id);
-			/*	if (packet instanceof UnknownPacket) {
-					ROTMGRelay.echo("Warning : Not mapped packet : " + entry.getKey() + " -> " + id);
-				}*/
+			for (var entry: packetMap.entrySet()) {
+				byte id = entry.getValue();
+//				var packet = create(id);
+//			/*	if (packet instanceof UnknownPacket) {
+//					ROTMGRelay.echo("Warning : Not mapped packet : " + entry.getKey() + " -> " + id);
+//				}*/
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -134,13 +138,13 @@ public abstract class Packet implements IData {
 	public static Packet create(byte id) throws Exception {
                 if(!initialized)
                     init();
-		Class<? extends Packet> packetClass = packetIdtoClassMap.get(id);
+		var packetClass = packetIdtoClassMap.get(id);
 		if (packetClass == null) {
-			UnknownPacket packet = new UnknownPacket();
+			var packet = new UnknownPacket();
 			packet.setId(id);
 			return packet;
 		}
-		return packetClass.newInstance();
+		return (Packet) packetClass.getConstructor().newInstance();
 	}
 	
 	/**
@@ -151,35 +155,37 @@ public abstract class Packet implements IData {
 	 * @throws IOException
 	 */
 	public static Packet create(byte id, byte[] bytes) throws Exception {
-		Packet packet = Packet.create(id);
+		var packet = create(id);
+                if(packet instanceof UnknownPacket)
+                    System.err.println("Created an unknown packet from id: " + id);
 		packet.parseFromInput(new DataInputStream(new ByteArrayInputStream(bytes)));
-		int byteLength = packet.getBytes().length;
+		var byteLength = packet.getBytes().length;
 		if (byteLength != bytes.length) {
-			ROTMGRelay.echo(packet + " byte length is " + byteLength + " after parsing, but was " + bytes.length + " before parsing. Try updating your packets.xml");
+			echo(packet + " byte length is " + byteLength + " after parsing, but was " + bytes.length + " before parsing. Try updating your packets.xml");
 		}
 		return packet;
 	}
 	
 	public byte[] getBytes() throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		DataOutputStream out = new DataOutputStream(baos);
+		var baos = new ByteArrayOutputStream();
+		var out = new DataOutputStream(baos);
 		this.writeToOutput(out);
 		return baos.toByteArray();
 	}
 	
 	public String getName() {
-		String simpleName = this.getClass().getSimpleName();
+		var simpleName = this.getClass().getSimpleName();
 		simpleName = simpleName.substring(0, simpleName.indexOf("Packet"));
 		return simpleName.toUpperCase();
 	}
 	
 	public byte id() {
-		String name = this.getName();
-		Integer id = GETXmlParse.packetMap.get(name);
+		var name = this.getName();
+		var id = packetMap.get(name);
 		if (id == null) {
 			return -1;
 		}
-		return id.byteValue();
+		return id;
 	}
 	
 	@Override

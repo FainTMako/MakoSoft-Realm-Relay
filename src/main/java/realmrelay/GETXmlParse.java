@@ -30,7 +30,7 @@ public class GETXmlParse {
 	public static final Map<Integer, ObjectData> objectMap2 = new HashMap<Integer, ObjectData>();
 	public static final Map<String, GroundData> tileMap = new HashMap<String, GroundData>();
 	public static final Map<Integer, GroundData> tileMap2 = new HashMap<Integer, GroundData>();
-	public static final Map<String, Integer> packetMap = new HashMap<String, Integer>();
+	public static final Map<String, Byte> packetMap = new HashMap<String, Byte>();
 	
 	private static final int XML_ITEMS = 0;
 	private static final int XML_OBJECTS = 1;
@@ -250,7 +250,7 @@ public class GETXmlParse {
                                 NodeList nodeList2 = null;
                                 nodeList2 = el.getElementsByTagName("PacketID");
 //                                int typetemp = nodeList2.item(0).getTextContent();
-                                int typetemp = Integer.parseInt(nodeList2.item(0).getTextContent());
+                                byte typetemp = (byte) Integer.parseInt(nodeList2.item(0).getTextContent());
                                 System.err.println("idtemp" + idtemp + "Typetemp " + typetemp);
 //				int packetType = 1;
                                 

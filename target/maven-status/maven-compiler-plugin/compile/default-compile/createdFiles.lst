@@ -11,7 +11,6 @@ realmrelay\packets\server\FilePacket.class
 realmrelay\data\GroundData.class
 realmrelay\packets\server\ReconnectPacket.class
 realmrelay\packets\client\EnemyHitPacket.class
-realmrelay\packets\server\ShootPacket.class
 realmrelay\packets\client\TeleportPacket.class
 realmrelay\data\SlotObject.class
 realmrelay\PacketManager.class
@@ -38,6 +37,7 @@ realmrelay\packets\UnknownPacket.class
 realmrelay\packets\client\UsePortalPacket.class
 realmrelay\script\PacketScriptEvent.class
 realmrelay\packets\client\UseItemPacket.class
+realmrelay\packets\server\EnemyShootPacket.class
 realmrelay\packets\client\ShootAckPacket.class
 realmrelay\packets\server\AOEPacket.class
 realmrelay\packets\client\GoToAckPacket.class
@@ -47,11 +47,11 @@ realmrelay\packets\client\CancelTradePacket.class
 realmrelay\packets\client\ReskinPacket.class
 realmrelay\packets\client\MovePacket.class
 realmrelay\packets\server\PlaySoundPacket.class
-realmrelay\packets\server\Create_SuccessPacket.class
 realmrelay\packets\server\Global_NotificationPacket.class
 realmrelay\crypto\RC4.class
 realmrelay\packets\client\PlayerHitPacket.class
 realmrelay\packets\server\NameResultPacket.class
+realmrelay\packets\server\ShowEffectPacket.class
 realmrelay\User.class
 realmrelay\data\Tile.class
 realmrelay\packets\server\NotificationPacket.class
@@ -63,6 +63,7 @@ realmrelay\packets\client\CreateGuildPacket.class
 realmrelay\packets\client\RequestTradePacket.class
 realmrelay\packets\client\GuildInvitePacket.class
 realmrelay\packets\server\ClientStatPacket.class
+realmrelay\packets\server\NewTickPacket.class
 realmrelay\packets\server\InvResultPacket.class
 realmrelay\packets\client\SetConditionPacket.class
 realmrelay\packets\server\AccountListPacket.class
@@ -72,7 +73,6 @@ realmrelay\packets\client\LoadPacket.class
 realmrelay\packets\client\ChooseNamePacket.class
 realmrelay\data\BitmapData.class
 realmrelay\packets\server\TradeAcceptedPacket.class
-realmrelay\crypto\ARC4.class
 realmrelay\packets\server\FailurePacket.class
 realmrelay\data\IData.class
 realmrelay\data\ProjectileData.class
@@ -81,7 +81,6 @@ realmrelay\net\ListenSocket$1.class
 realmrelay\packets\client\GroundDamagePacket.class
 realmrelay\packets\client\GuildRemovePacket.class
 realmrelay\packets\client\EscapePacket.class
-realmrelay\packets\server\New_TickPacket.class
 realmrelay\data\LocationRecord.class
 realmrelay\packets\client\EditAccountListPacket.class
 realmrelay\script\ScriptManager.class
@@ -92,13 +91,13 @@ realmrelay\packets\client\InvSwapPacket.class
 realmrelay\packets\server\TradeDonePacket.class
 realmrelay\data\ItemData.class
 realmrelay\packets\client\GotoQuestRoomPacket.class
+realmrelay\packets\server\CreateSuccessPacket.class
 realmrelay\packets\client\PlayerTextPacket.class
 realmrelay\script\ScheduledScriptEvent.class
 realmrelay\net\ListenSocket.class
 realmrelay\packets\client\AcceptTradePacket.class
 realmrelay\packets\client\HelloPacket.class
 realmrelay\packets\server\TradeChangedPacket.class
-realmrelay\packets\server\Show_EffectPacket.class
 realmrelay\packets\server\DeathPacket.class
 realmrelay\packets\server\ServerPlayerShootPacket.class
 realmrelay\data\ObjectData.class

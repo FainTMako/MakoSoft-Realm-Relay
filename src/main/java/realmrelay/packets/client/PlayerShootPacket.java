@@ -28,7 +28,7 @@ public class PlayerShootPacket extends Packet {
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 		out.writeInt(this.time);
-		out.writeByte(this.bulletId);
+		out.writeByte((int) this.bulletId);
 		out.writeShort(this.containerType);
 		this.startingPos.writeToOutput(out);
 		out.writeFloat(this.angle);

@@ -161,7 +161,7 @@ public class ScriptEvent {
 	}
 	
 	public byte findPacketId(String name) {
-		Integer id = (Integer) GETXmlParse.packetMap.get(name.toUpperCase());
+		Byte id =  GETXmlParse.packetMap.get(name.toUpperCase());
 		if (id == null) {
 			return -1;
 		}
