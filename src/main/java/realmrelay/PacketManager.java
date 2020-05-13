@@ -236,7 +236,7 @@ public class PacketManager {
 					
 					if (playerData.pos != null && portals.get(tryingToJoinPortalId) != null) {
 						
-						if (!enteredInRealm && wantToBeReconnected && playerData.pos.distanceSquaredTo(portals.get(tryingToJoinPortalId).loc) < 2) {
+						if (!enteredInRealm && wantToBeReconnected && playerData.pos.distanceSq(portals.get(tryingToJoinPortalId).loc) < 2) {
 							
 							tellToPlayer(event, "Auto Reconnecting...");
 							UsePortalPacket upk = new UsePortalPacket();
